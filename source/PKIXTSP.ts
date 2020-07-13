@@ -184,7 +184,7 @@ export class TimeStampReq {
         readonly version: TimeStampReq_version,
         readonly messageImprint: MessageImprint,
         readonly reqPolicy: asn1.OPTIONAL<TSAPolicyId>,
-        readonly nonce: asn1.OPTIONAL<asn1.INTEGER>,
+        readonly nonce: asn1.OPTIONAL<asn1.OCTET_STRING>,
         readonly certReq: asn1.OPTIONAL<asn1.BOOLEAN>,
         readonly extensions: asn1.OPTIONAL<Extensions>
     ) {}
@@ -253,7 +253,7 @@ export function _decode_TimeStampReq(el: asn1.ASN1Element) {
             let version!: TimeStampReq_version;
             let messageImprint!: MessageImprint;
             let reqPolicy: asn1.OPTIONAL<TSAPolicyId>;
-            let nonce: asn1.OPTIONAL<asn1.INTEGER>;
+            let nonce: asn1.OPTIONAL<asn1.OCTET_STRING>;
             let certReq: asn1.OPTIONAL<asn1.BOOLEAN> =
                 TimeStampReq._default_value_for_certReq;
             let extensions: asn1.OPTIONAL<Extensions>;
@@ -270,7 +270,7 @@ export function _decode_TimeStampReq(el: asn1.ASN1Element) {
                     reqPolicy = _decode_TSAPolicyId(_el);
                 },
                 nonce: (_el: asn1.ASN1Element): void => {
-                    nonce = __utils._decodeInteger(_el);
+                    nonce = __utils._decodeOctetString(_el);
                 },
                 certReq: (_el: asn1.ASN1Element): void => {
                     certReq = __utils._decodeBoolean(_el);
@@ -327,7 +327,7 @@ export function _encode_TimeStampReq(
                             : _encode_TSAPolicyId(value.reqPolicy, __utils.BER),
                         /* IF_ABSENT  */ value.nonce === undefined
                             ? undefined
-                            : __utils._encodeInteger(value.nonce, __utils.BER),
+                            : __utils._encodeOctetString(value.nonce, __utils.BER),
                         /* IF_DEFAULT */ value.certReq === undefined ||
                         __utils.deepEq(
                             value.certReq,
@@ -803,11 +803,11 @@ export class TSTInfo {
         readonly version: TSTInfo_version,
         readonly policy: TSAPolicyId,
         readonly messageImprint: MessageImprint,
-        readonly serialNumber: asn1.INTEGER,
+        readonly serialNumber: asn1.OCTET_STRING,
         readonly genTime: asn1.GeneralizedTime,
         readonly accuracy: asn1.OPTIONAL<Accuracy>,
         readonly ordering: asn1.OPTIONAL<asn1.BOOLEAN>,
-        readonly nonce: asn1.OPTIONAL<asn1.INTEGER>,
+        readonly nonce: asn1.OPTIONAL<asn1.OCTET_STRING>,
         readonly tsa: asn1.OPTIONAL<GeneralName>,
         readonly extensions: asn1.OPTIONAL<Extensions>
     ) {}
@@ -898,12 +898,12 @@ export function _decode_TSTInfo(el: asn1.ASN1Element) {
             let version!: TSTInfo_version;
             let policy!: TSAPolicyId;
             let messageImprint!: MessageImprint;
-            let serialNumber!: asn1.INTEGER;
+            let serialNumber!: asn1.OCTET_STRING;
             let genTime!: asn1.GeneralizedTime;
             let accuracy: asn1.OPTIONAL<Accuracy>;
             let ordering: asn1.OPTIONAL<asn1.BOOLEAN> =
                 TSTInfo._default_value_for_ordering;
-            let nonce: asn1.OPTIONAL<asn1.INTEGER>;
+            let nonce: asn1.OPTIONAL<asn1.OCTET_STRING>;
             let tsa: asn1.OPTIONAL<GeneralName>;
             let extensions: asn1.OPTIONAL<Extensions>;
             /* END_OF_SEQUENCE_COMPONENT_DECLARATIONS */
@@ -919,7 +919,7 @@ export function _decode_TSTInfo(el: asn1.ASN1Element) {
                     messageImprint = _decode_MessageImprint(_el);
                 },
                 serialNumber: (_el: asn1.ASN1Element): void => {
-                    serialNumber = __utils._decodeInteger(_el);
+                    serialNumber = __utils._decodeOctetString(_el);
                 },
                 genTime: (_el: asn1.ASN1Element): void => {
                     genTime = __utils._decodeGeneralizedTime(_el);
@@ -931,7 +931,7 @@ export function _decode_TSTInfo(el: asn1.ASN1Element) {
                     ordering = __utils._decodeBoolean(_el);
                 },
                 nonce: (_el: asn1.ASN1Element): void => {
-                    nonce = __utils._decodeInteger(_el);
+                    nonce = __utils._decodeOctetString(_el);
                 },
                 tsa: (_el: asn1.ASN1Element): void => {
                     tsa = __utils._decode_implicit<GeneralName>(
@@ -993,7 +993,7 @@ export function _encode_TSTInfo(
                             value.messageImprint,
                             __utils.BER
                         ),
-                        /* REQUIRED   */ __utils._encodeInteger(
+                        /* REQUIRED   */ __utils._encodeOctetString(
                             value.serialNumber,
                             __utils.BER
                         ),
@@ -1016,7 +1016,7 @@ export function _encode_TSTInfo(
                               ),
                         /* IF_ABSENT  */ value.nonce === undefined
                             ? undefined
-                            : __utils._encodeInteger(value.nonce, __utils.BER),
+                            : __utils._encodeOctetString(value.nonce, __utils.BER),
                         /* IF_ABSENT  */ value.tsa === undefined
                             ? undefined
                             : __utils._encode_implicit(
