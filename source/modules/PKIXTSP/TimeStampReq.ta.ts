@@ -3,7 +3,7 @@ import {
     ASN1Element as _Element,
     ASN1TagClass as _TagClass,
     BOOLEAN,
-    INTEGER,
+    OCTET_STRING,
     OPTIONAL,
 } from "asn1-ts";
 import * as $ from "asn1-ts/dist/node/functional";
@@ -96,7 +96,7 @@ export class TimeStampReq {
          * @public
          * @readonly
          */
-        readonly nonce: OPTIONAL<INTEGER>,
+        readonly nonce: OPTIONAL<OCTET_STRING>,
         /**
          * @summary `certReq`.
          * @public
@@ -247,7 +247,7 @@ export function _decode_TimeStampReq(el: _Element) {
             let version!: TimeStampReq_version;
             let messageImprint!: MessageImprint;
             let reqPolicy: OPTIONAL<TSAPolicyId>;
-            let nonce: OPTIONAL<INTEGER>;
+            let nonce: OPTIONAL<OCTET_STRING>;
             let certReq: OPTIONAL<BOOLEAN> =
                 TimeStampReq._default_value_for_certReq;
             let extensions: OPTIONAL<Extensions>;
@@ -264,7 +264,7 @@ export function _decode_TimeStampReq(el: _Element) {
                     reqPolicy = _decode_TSAPolicyId(_el);
                 },
                 nonce: (_el: _Element): void => {
-                    nonce = $._decodeInteger(_el);
+                    nonce = $._decodeBigInt(_el);
                 },
                 certReq: (_el: _Element): void => {
                     certReq = $._decodeBoolean(_el);
@@ -335,7 +335,7 @@ export function _encode_TimeStampReq(
                             : _encode_TSAPolicyId(value.reqPolicy, $.BER),
                         /* IF_ABSENT  */ value.nonce === undefined
                             ? undefined
-                            : $._encodeInteger(value.nonce, $.BER),
+                            : $._encodeBigInt(value.nonce, $.BER),
                         /* IF_DEFAULT */ value.certReq === undefined ||
                         $.deepEq(
                             value.certReq,
